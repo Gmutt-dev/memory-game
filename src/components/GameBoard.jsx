@@ -10,10 +10,16 @@ const NUMBER_OF_PLAYCARDS = 6;
 
 export function GameBoard() {
   const [playCardDeck, setPlayCardDeck] = useState([]);
-  console.log(playCardDeck);
 
   function handlePlayCardClick(e) {
-    //
+    const clickedPlayCardId = Number.parseInt(e.currentTarget.dataset.id);
+    setPlayCardDeck(
+      playCardDeck.map((card) => {
+        return card.id !== clickedPlayCardId
+          ? card
+          : { ...card, clickCount: card.clickCount + 1 };
+      })
+    );
   }
 
   useEffect(() => {
@@ -26,7 +32,6 @@ export function GameBoard() {
           1,
           cardDetailsArray.length
         );
-        console.log(firstRoundDraw);
         setPlayCardDeck(
           cardDetailsArray.map((result, index) => ({
             id: index + 1,
@@ -55,9 +60,10 @@ export function GameBoard() {
           .map((card) => (
             <PlayCard
               key={card.id}
+              id={card.id}
               url={card.url}
               name={card.name}
-              onClick={handlePlayCardClick}
+              handlePlayCardClick={handlePlayCardClick}
             />
           ))}
       </div>
