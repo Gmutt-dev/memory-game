@@ -77,6 +77,7 @@ export function GameBoard() {
                 id={card.id}
                 url={card.url}
                 name={card.name}
+                clickCount={card.clickCount}
                 handlePlayCardClick={handlePlayCardClick}
               />
             ))
