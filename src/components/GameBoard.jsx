@@ -10,6 +10,7 @@ const NUMBER_OF_PLAYCARDS = 6;
 
 export function GameBoard() {
   const [playCardDeck, setPlayCardDeck] = useState([]);
+  console.log(playCardDeck);
 
   function handlePlayCardClick(e) {
     //
@@ -25,6 +26,7 @@ export function GameBoard() {
           1,
           cardDetailsArray.length
         );
+        console.log(firstRoundDraw);
         setPlayCardDeck(
           cardDetailsArray.map((result, index) => ({
             id: index + 1,
@@ -49,11 +51,11 @@ export function GameBoard() {
       <ScoreCard />
       <div className="playcard-container">
         {playCardDeck
-          .filter((card) => (card.isDrawn = true))
+          .filter((card) => card.isDrawn === true)
           .map((card) => (
             <PlayCard
               key={card.id}
-              id={card.id}
+              url={card.url}
               name={card.name}
               onClick={handlePlayCardClick}
             />
