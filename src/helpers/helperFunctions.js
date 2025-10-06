@@ -10,4 +10,6 @@ export function generateRandomNumbersSet(qty, min = 0, max = qty + min - 1) {
     const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
     uniqueNumbers.add(randomNumber);
   }
+
+  return uniqueNumbers;
 }
