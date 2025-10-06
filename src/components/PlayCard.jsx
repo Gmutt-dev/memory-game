@@ -16,7 +16,7 @@ export function PlayCard({ url, name, handlePlayCardClick }) {
   });
 
   return (
-    <div className="playcard">
+    <div className="playcard" onClick={handlePlayCardClick}>
       {(() => {
         switch (loadStatus) {
           case "loading":
