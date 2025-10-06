@@ -6,7 +6,7 @@ export function generateRandomNumbersSet(qty, min = 0, max = qty + min - 1) {
     qty = max - min + 1;
   }
   const uniqueNumbers = new Set();
-  while (uniqueNumbers.size < count) {
+  while (uniqueNumbers.size < qty) {
     const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
     uniqueNumbers.add(randomNumber);
   }
