@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import "../styles/GameBoard.css";
-import { generateRandomNumbersSet } from "../helpers/helperFunctions";
+import {
+  generateRandomNumbersSet,
+  randomShuffleArray,
+} from "../helpers/helperFunctions";
 import { ScoreCard } from "./ScoreCard";
 import { PlayCard } from "./PlayCard";
 
@@ -65,17 +68,19 @@ export function GameBoard() {
     <div className="gameboard">
       <ScoreCard score={score} />
       <div className="playcard-container">
-        {playCardDeck
-          .filter((card) => card.isDrawn === true)
-          .map((card) => (
-            <PlayCard
-              key={card.id}
-              id={card.id}
-              url={card.url}
-              name={card.name}
-              handlePlayCardClick={handlePlayCardClick}
-            />
-          ))}
+        {randomShuffleArray(
+          playCardDeck
+            .filter((card) => card.isDrawn === true)
+            .map((card) => (
+              <PlayCard
+                key={card.id}
+                id={card.id}
+                url={card.url}
+                name={card.name}
+                handlePlayCardClick={handlePlayCardClick}
+              />
+            ))
+        )}
       </div>
     </div>
   );
