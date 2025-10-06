@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../styles/PlayCard.css";
 
-export function PlayCard({ url, name, handlePlayCardClick }) {
+export function PlayCard({ id, url, name, handlePlayCardClick }) {
   const [imgUrl, setImgUrl] = useState();
   const [loadStatus, setLoadStatus] = useState("loading");
 
@@ -16,7 +16,7 @@ export function PlayCard({ url, name, handlePlayCardClick }) {
   });
 
   return (
-    <div className="playcard" onClick={handlePlayCardClick}>
+    <div className="playcard" data-id={id} onClick={handlePlayCardClick}>
       {(() => {
         switch (loadStatus) {
           case "loading":
