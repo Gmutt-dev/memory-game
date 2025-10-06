@@ -13,3 +13,10 @@ export function generateRandomNumbersSet(qty, min = 0, max = qty + min - 1) {
 
   return uniqueNumbers;
 }
+
+export function RandomShuffleArray(array) {
+  return array
+    .map((element) => ({ element, randomNumber: Math.random() }))
+    .toSorted((a, b) => a.randomNumber - b.randomNumber)
+    .map(({ element }) => element);
+}
