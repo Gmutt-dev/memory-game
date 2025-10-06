@@ -10,16 +10,26 @@ const NUMBER_OF_PLAYCARDS = 6;
 
 export function GameBoard() {
   const [playCardDeck, setPlayCardDeck] = useState([]);
+  const [gameStatus, setGameStatus] = useState("playing");
+  const [score, setScore] = useState(0);
 
   function handlePlayCardClick(e) {
-    const clickedPlayCardId = Number.parseInt(e.currentTarget.dataset.id);
-    setPlayCardDeck(
-      playCardDeck.map((card) => {
-        return card.id !== clickedPlayCardId
-          ? card
-          : { ...card, clickCount: card.clickCount + 1 };
-      })
-    );
+    if (gameStatus === "playing") {
+      const clickedPlayCardId = Number.parseInt(e.currentTarget.dataset.id);
+      if (
+        playCardDeck.find((card) => card.id === clickedPlayCardId).clickCount >
+        0
+      )
+        setGameStatus("lost");
+      else setScore((prev) => prev + 1);
+      setPlayCardDeck(
+        playCardDeck.map((card) => {
+          return card.id !== clickedPlayCardId
+            ? card
+            : { ...card, clickCount: card.clickCount + 1 };
+        })
+      );
+    }
   }
 
   useEffect(() => {
@@ -53,7 +63,7 @@ export function GameBoard() {
     "Loading"
   ) : (
     <div className="gameboard">
-      <ScoreCard />
+      <ScoreCard score={score} />
       <div className="playcard-container">
         {playCardDeck
           .filter((card) => card.isDrawn === true)
