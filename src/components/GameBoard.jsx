@@ -7,9 +7,11 @@ import {
 import { ScoreCard } from "./ScoreCard";
 import { PlayCard } from "./PlayCard";
 import { CardSpace } from "./CardSpace";
+import { SliderOptionInput } from "./SliderOptionInput";
 
 const CARD_LIST_URL =
   "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=100000";
+const difficultyOptions = ["easy", "normal", "hard"];
 const cardsByDifficulty = new Map([
   ["easy", 2 * 2],
   ["normal", 3 * 3],
@@ -42,6 +44,10 @@ export function GameBoard() {
     setPlayCardDeck(playCardDeck.map((card) => ({ ...card, isDrawn: false })));
     setScore(0);
     setRoundStatus("setup");
+  }
+
+  function handleDifficultyChange(e, newOption) {
+    setDifficulty(newOption);
   }
 
   function handlePlayCardClick(e) {
@@ -98,9 +104,17 @@ export function GameBoard() {
     <div className="gameboard">
       <header className="gameboard-header">
         {roundStatus === "setup" ? (
-          <button type="button" onClick={handleStartRoundButtonClick}>
-            Start Round
-          </button>
+          <>
+            <SliderOptionInput
+              initialOption={difficulty}
+              options={difficultyOptions}
+              labelText="Difficulty"
+              onChange={handleDifficultyChange}
+            />
+            <button type="button" onClick={handleStartRoundButtonClick}>
+              Start Round
+            </button>
+          </>
         ) : (
           <button type="button" onClick={handleNewRestartRoundButtonClick}>
             New/Restart Round
