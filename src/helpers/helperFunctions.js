@@ -22,7 +22,7 @@ export function randomShuffleArray(array) {
 }
 
 export function createRandomUUID() {
-  return Crypto.randomUUID();
+  return crypto.randomUUID();
 }
 
 export function removeArrayDuplicates(arr) {
