@@ -20,3 +20,7 @@ export function randomShuffleArray(array) {
     .toSorted((a, b) => a.randomNumber - b.randomNumber)
     .map(({ element }) => element);
 }
+
+export function createRandomUUID() {
+  return Crypto.randomUUID();
+}
