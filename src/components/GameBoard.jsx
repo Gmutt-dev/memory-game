@@ -18,18 +18,39 @@ const cardsByDifficulty = new Map([
 
 export function GameBoard() {
   const [playCardDeck, setPlayCardDeck] = useState([]);
-  const [gameStatus, setGameStatus] = useState("setup");
+  const [roundStatus, setRoundStatus] = useState("setup"); // "setup" || "playing" || "won" || "lost"
   const [score, setScore] = useState(0);
   const [difficulty, setDifficulty] = useState("normal"); // "easy" || "normal" || "hard"
 
+  function handleStartRoundButtonClick() {
+    const randomCardIdDraw = [
+      ...generateRandomNumbersSet(
+        cardsByDifficulty.get(difficulty),
+        0,
+        playCardDeck.length - 1
+      ),
+    ];
+    setPlayCardDeck(
+      playCardDeck.map((card) =>
+        randomCardIdDraw.includes(card.id) ? { ...card, isDrawn: true } : card
+      )
+    );
+    setRoundStatus("playing");
+  }
+
+  function handleNewRestartRoundButtonClick() {
+    setPlayCardDeck(playCardDeck.map((card) => ({ ...card, isDrawn: false })));
+    setRoundStatus("setup");
+  }
+
   function handlePlayCardClick(e) {
-    if (gameStatus === "playing") {
+    if (roundStatus === "playing") {
       const clickedPlayCardId = Number.parseInt(e.currentTarget.dataset.id);
       if (
         playCardDeck.find((card) => card.id === clickedPlayCardId).clickCount >
         0
       )
-        setGameStatus("lost");
+        setRoundStatus("lost");
       else setScore((prev) => prev + 1);
       setPlayCardDeck(
         playCardDeck.map((card) => {
@@ -46,11 +67,7 @@ export function GameBoard() {
       .then((response) => response.json())
       .then((data) => {
         const cardDetailsArray = data.results;
-        // const firstRoundDraw = generateRandomNumbersSet(
-        //   NUMBER_OF_PLAYCARDS,
-        //   1,
-        //   cardDetailsArray.length
-        // );
+
         setPlayCardDeck(
           cardDetailsArray.map((result, index) => ({
             id: index,
@@ -58,7 +75,6 @@ export function GameBoard() {
             url: result.url,
             clickCount: 0,
             isDrawn: false,
-            // isDrawn: firstRoundDraw.has(index + 1) ? true : false,
           }))
         );
       })
@@ -74,11 +90,19 @@ export function GameBoard() {
   ) : (
     <div className="gameboard">
       <header className="gameboard-header">
-        {gameStatus === "setup" ? <button></button> : <button></button>}
+        {roundStatus === "setup" ? (
+          <button type="button" onClick={handleStartRoundButtonClick}>
+            Start Round
+          </button>
+        ) : (
+          <button type="button" onClick={handleNewRestartRoundButtonClick}>
+            New/Restart Round
+          </button>
+        )}
         <ScoreCard score={score} />
       </header>
       <div className="playcard-container">
-        {gameStatus === "setup"
+        {roundStatus === "setup"
           ? Array(cardsByDifficulty.get(difficulty))
               .fill()
               .map((element, index) => <CardSpace key={index} />)
