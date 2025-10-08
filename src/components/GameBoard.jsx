@@ -40,6 +40,7 @@ export function GameBoard() {
 
   function handleNewRestartRoundButtonClick() {
     setPlayCardDeck(playCardDeck.map((card) => ({ ...card, isDrawn: false })));
+    setScore(0);
     setRoundStatus("setup");
   }
 
@@ -51,7 +52,13 @@ export function GameBoard() {
         0
       )
         setRoundStatus("lost");
-      else setScore((prev) => prev + 1);
+      else {
+        const newScore = score + 1;
+        setScore(newScore);
+        if (newScore === cardsByDifficulty.get(difficulty))
+          setRoundStatus("won");
+      }
+
       setPlayCardDeck(
         playCardDeck.map((card) => {
           return card.id !== clickedPlayCardId
