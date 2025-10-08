@@ -24,3 +24,7 @@ export function randomShuffleArray(array) {
 export function createRandomUUID() {
   return Crypto.randomUUID();
 }
+
+export function removeArrayDuplicates(arr) {
+  return [...new Set(arr)];
+}
