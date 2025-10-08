@@ -113,20 +113,22 @@ export function GameBoard() {
           ? Array(cardsByDifficulty.get(difficulty))
               .fill()
               .map((element, index) => <CardSpace key={index} />)
-          : randomShuffleArray(
-              playCardDeck
-                .filter((card) => card.isDrawn === true)
-                .map((card) => (
-                  <PlayCard
-                    key={card.id}
-                    id={card.id}
-                    url={card.url}
-                    name={card.name}
-                    clickCount={card.clickCount}
-                    handlePlayCardClick={handlePlayCardClick}
-                  />
-                ))
-            )}
+          : roundStatus === "win"
+            ? "YOU WIN"
+            : randomShuffleArray(
+                playCardDeck
+                  .filter((card) => card.isDrawn === true)
+                  .map((card) => (
+                    <PlayCard
+                      key={card.id}
+                      id={card.id}
+                      url={card.url}
+                      name={card.name}
+                      clickCount={card.clickCount}
+                      handlePlayCardClick={handlePlayCardClick}
+                    />
+                  ))
+              )}
       </div>
     </div>
   );
