@@ -10,12 +10,17 @@ import { CardSpace } from "./CardSpace";
 
 const CARD_LIST_URL =
   "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=100000";
-const NUMBER_OF_PLAYCARDS = 9;
+const cardsByDifficulty = new Map([
+  ["easy", 2 * 2],
+  ["normal", 3 * 3],
+  ["hard", 4 * 4],
+]);
 
 export function GameBoard() {
   const [playCardDeck, setPlayCardDeck] = useState([]);
   const [gameStatus, setGameStatus] = useState("setup");
   const [score, setScore] = useState(0);
+  const [difficulty, setDifficulty] = useState("normal"); // "easy" || "normal" || "hard"
 
   function handlePlayCardClick(e) {
     if (gameStatus === "playing") {
@@ -68,10 +73,15 @@ export function GameBoard() {
     "Retrieving playcards"
   ) : (
     <div className="gameboard">
-      <ScoreCard score={score} />
+      <header className="gameboard-header">
+        {gameStatus === "setup" ? <button></button> : <button></button>}
+        <ScoreCard score={score} />
+      </header>
       <div className="playcard-container">
         {gameStatus === "setup"
-          ? Array(NUMBER_OF_PLAYCARDS).fill(<CardSpace />, 0)
+          ? Array(cardsByDifficulty.get(difficulty))
+              .fill()
+              .map((element, index) => <CardSpace key={index} />)
           : randomShuffleArray(
               playCardDeck
                 .filter((card) => card.isDrawn === true)
