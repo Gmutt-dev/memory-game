@@ -24,9 +24,11 @@ export function SliderOptionInput({
     <>
       <datalist id={IDs.datalistID}>
         {removeArrayDuplicates(options).map((option, index) => (
-          <option key={createRandomUUID()} value={index} label={option}>
-            {option}
-          </option>
+          <option
+            key={createRandomUUID()}
+            value={index}
+            label={option}
+          ></option>
         ))}
       </datalist>
 
