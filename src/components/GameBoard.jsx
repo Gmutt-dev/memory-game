@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import "../styles/GameBoard.css";
 import {
   generateRandomNumbersSet,
@@ -21,8 +21,16 @@ const cardsByDifficulty = new Map([
 export function GameBoard() {
   const [playCardDeck, setPlayCardDeck] = useState([]);
   const [roundStatus, setRoundStatus] = useState("setup"); // "setup" || "playing" || "won" || "lost"
-  const [score, setScore] = useState(0);
   const [difficulty, setDifficulty] = useState("normal"); // "easy" || "normal" || "hard"
+
+  const score = useMemo(
+    () =>
+      playCardDeck.reduce(
+        (points, card) => (card.clickCount > 0 ? points + 1 : points),
+        0
+      ),
+    [playCardDeck]
+  );
 
   function handleStartRoundButtonClick() {
     const randomCardIdDraw = [
@@ -41,8 +49,9 @@ export function GameBoard() {
   }
 
   function handleNewRestartRoundButtonClick() {
-    setPlayCardDeck(playCardDeck.map((card) => ({ ...card, isDrawn: false })));
-    setScore(0);
+    setPlayCardDeck(
+      playCardDeck.map((card) => ({ ...card, isDrawn: false, clickCount: 0 }))
+    );
     setRoundStatus("setup");
   }
 
@@ -60,7 +69,6 @@ export function GameBoard() {
         setRoundStatus("lost");
       else {
         const newScore = score + 1;
-        setScore(newScore);
         if (newScore === cardsByDifficulty.get(difficulty))
           setRoundStatus("won");
       }
