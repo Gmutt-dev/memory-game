@@ -17,6 +17,7 @@ const cardsByDifficulty = new Map([
   ["normal", 4 * 2],
   ["hard", 4 * 3],
 ]);
+const MAX_PLAYCARDS = 1000;
 
 export function GameBoard() {
   const [playCardDeck, setPlayCardDeck] = useState([]);
@@ -44,7 +45,7 @@ export function GameBoard() {
       ...generateRandomNumbersSet(
         cardsByDifficulty.get(difficulty),
         0,
-        playCardDeck.length - 1
+        MAX_PLAYCARDS - 1 // limited, as high number cards don't necessarily have images available yet
       ),
     ];
     setPlayCardDeck(
