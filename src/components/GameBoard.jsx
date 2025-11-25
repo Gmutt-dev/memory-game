@@ -127,13 +127,14 @@ export function GameBoard() {
         <ScoreCard score={score} />
       </header>
       <div className="playcard-container">
-        {roundStatus === "setup"
-          ? Array(cardsByDifficulty.get(difficulty))
-              .fill()
-              .map((element, index) => <PlayCardSpace key={index} />)
-          : roundStatus === "win"
-            ? "YOU WIN"
-            : randomShuffleArray(
+        {(() => {
+          switch (roundStatus) {
+            case "setup":
+              return Array(cardsByDifficulty.get(difficulty))
+                .fill()
+                .map((element, index) => <PlayCardSpace key={index} />);
+            case "playing":
+              return randomShuffleArray(
                 playCardDeck
                   .filter((card) => card.isDrawn === true)
                   .map((card) => (
@@ -146,7 +147,24 @@ export function GameBoard() {
                       handlePlayCardClick={handlePlayCardClick}
                     />
                   ))
-              )}
+              );
+            case "won":
+              return "YOU WIN";
+            case "lost":
+              return playCardDeck
+                .filter((card) => card.clickCount > 1)
+                .map((card) => (
+                  <PlayCard
+                    key={card.id}
+                    id={card.id}
+                    url={card.url}
+                    name={card.name}
+                    clickCount={card.clickCount}
+                    handlePlayCardClick={handlePlayCardClick}
+                  />
+                ));
+          }
+        })()}
       </div>
     </div>
   );
