@@ -20,7 +20,6 @@ const cardsByDifficulty = new Map([
 
 export function GameBoard() {
   const [playCardDeck, setPlayCardDeck] = useState([]);
-  const [roundStatus, setRoundStatus] = useState("setup"); // "setup" || "playing" || "won" || "lost"
   const [difficulty, setDifficulty] = useState("normal"); // "easy" || "normal" || "hard"
 
   const score = useMemo(
@@ -31,6 +30,14 @@ export function GameBoard() {
       ),
     [playCardDeck]
   );
+
+  // "setup" || "playing" || "won" || "lost"
+  const roundStatus = useMemo(() => {
+    if (score === cardsByDifficulty.get(difficulty)) return "won";
+    if (playCardDeck.some((card) => card.clickCount > 1)) return "lost";
+    if (playCardDeck.some((card) => card.isDrawn)) return "playing";
+    else return "setup";
+  }, [playCardDeck, score, difficulty]);
 
   function handleStartRoundButtonClick() {
     const randomCardIdDraw = [
@@ -45,14 +52,12 @@ export function GameBoard() {
         randomCardIdDraw.includes(card.id) ? { ...card, isDrawn: true } : card
       )
     );
-    setRoundStatus("playing");
   }
 
   function handleNewRestartRoundButtonClick() {
     setPlayCardDeck(
       playCardDeck.map((card) => ({ ...card, isDrawn: false, clickCount: 0 }))
     );
-    setRoundStatus("setup");
   }
 
   function handleDifficultyChange(e, newOption) {
@@ -62,16 +67,6 @@ export function GameBoard() {
   function handlePlayCardClick(e) {
     if (roundStatus === "playing") {
       const clickedPlayCardId = Number.parseInt(e.currentTarget.dataset.id);
-      if (
-        playCardDeck.find((card) => card.id === clickedPlayCardId).clickCount >
-        0
-      )
-        setRoundStatus("lost");
-      else {
-        const newScore = score + 1;
-        if (newScore === cardsByDifficulty.get(difficulty))
-          setRoundStatus("won");
-      }
 
       setPlayCardDeck(
         playCardDeck.map((card) => {
