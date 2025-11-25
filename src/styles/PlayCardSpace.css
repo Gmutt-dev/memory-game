@@ -1,4 +1,6 @@
 .cardspace {
+  background-color: lightgray;
+  border-radius: 5px;
   border: 1px solid black;
   height: 200px;
   width: 150px;
