@@ -13,9 +13,9 @@ const CARD_LIST_URL =
   "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=100000";
 const difficultyOptions = ["easy", "normal", "hard"];
 const cardsByDifficulty = new Map([
-  ["easy", 2 * 2],
-  ["normal", 3 * 3],
-  ["hard", 4 * 4],
+  ["easy", 4 * 1],
+  ["normal", 4 * 2],
+  ["hard", 4 * 3],
 ]);
 
 export function GameBoard() {
