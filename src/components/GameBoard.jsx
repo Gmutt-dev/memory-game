@@ -6,7 +6,7 @@ import {
 } from "../helpers/helperFunctions";
 import { ScoreCard } from "./ScoreCard";
 import { PlayCard } from "./PlayCard";
-import { CardSpace } from "./CardSpace";
+import { PlayCardSpace } from "./PlayCardSpace";
 import { SliderOptionInput } from "./SliderOptionInput";
 
 const CARD_LIST_URL =
@@ -126,7 +126,7 @@ export function GameBoard() {
         {roundStatus === "setup"
           ? Array(cardsByDifficulty.get(difficulty))
               .fill()
-              .map((element, index) => <CardSpace key={index} />)
+              .map((element, index) => <PlayCardSpace key={index} />)
           : roundStatus === "win"
             ? "YOU WIN"
             : randomShuffleArray(
