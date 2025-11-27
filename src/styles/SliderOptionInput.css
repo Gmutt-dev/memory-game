@@ -1,0 +1,19 @@
+.slider-option-input {
+  position: relative;
+  text-align: left;
+
+  & > label {
+    position: absolute;
+    left: 9px;
+  }
+
+  & > output {
+    position: absolute;
+    bottom: 0;
+    left: 9px;
+  }
+
+  & > input {
+    padding-top: 25px;
+  }
+}

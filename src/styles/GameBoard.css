@@ -1,3 +1,26 @@
+.gameboard > header {
+  padding: 10px;
+  background-color: black;
+  color: white;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  min-height: 62px;
+
+  & > * {
+    padding: 5px;
+  }
+
+  & button {
+    font-size: 1rem;
+  }
+
+  & .scorecard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+}
+
 .playcard-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -5,14 +28,4 @@
   padding: 20px;
   justify-content: center;
   background-color: green;
-}
-
-.gameboard > header {
-  padding: 5px;
-  background-color: black;
-  color: white;
-
-  & > * {
-    padding: 5px;
-  }
 }
