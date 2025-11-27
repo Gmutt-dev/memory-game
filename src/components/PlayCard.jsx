@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
 import "../styles/PlayCard.css";
 
-export function PlayCard({ id, url, name, clickCount, handlePlayCardClick }) {
+export function PlayCard({
+  id,
+  url,
+  name,
+  backImgUrl,
+  clickCount,
+  handlePlayCardClick,
+}) {
   const [imgUrl, setImgUrl] = useState();
   const [loadStatus, setLoadStatus] = useState("loading");
 
@@ -16,25 +23,36 @@ export function PlayCard({ id, url, name, clickCount, handlePlayCardClick }) {
   });
 
   return (
-    <div className={"playcard"} data-id={id} onClick={handlePlayCardClick}>
-      {(() => {
-        switch (loadStatus) {
-          case "loading":
-            return <p>"Loading..."</p>;
-          case "error":
-            return <p>"Error while loading"</p>;
-          case "success":
-            return (
-              <>
-                {clickCount > 1 && <p className="cross">x</p>}
-                <img src={imgUrl} alt={`Image of ${name.toUpperCase()}`} />
-                <p>{name.toUpperCase()}</p>
-              </>
-            );
-          default:
-            return null;
-        }
-      })()}
+    <div className="playcard">
+      <div
+        className={"playcard-front"}
+        data-id={id}
+        onClick={handlePlayCardClick}
+      >
+        {(() => {
+          switch (loadStatus) {
+            case "loading":
+              return <p>"Loading..."</p>;
+            case "error":
+              return <p>"Error while loading"</p>;
+            case "success":
+              return (
+                <>
+                  {clickCount > 1 && <p className="cross">x</p>}
+                  <img src={imgUrl} alt={`Image of ${name.toUpperCase()}`} />
+                  <p>{name.toUpperCase()}</p>
+                </>
+              );
+            default:
+              return null;
+          }
+        })()}
+      </div>
+
+      <div className="playcard-back">
+        <img src={backImgUrl} alt="Pokemon Logo" />
+        <p>Pokemon!</p>
+      </div>
     </div>
   );
 }

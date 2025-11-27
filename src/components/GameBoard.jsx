@@ -19,6 +19,8 @@ const cardsByDifficulty = new Map([
 ]);
 const difficultyOptions = [...cardsByDifficulty.keys()];
 const MAX_PLAYCARDS = 1000;
+const POKEBALL_IMAGE_URL =
+  "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png";
 
 export function GameBoard() {
   const [playCardDeck, setPlayCardDeck] = useState([]);
@@ -143,10 +145,11 @@ export function GameBoard() {
                   .filter((card) => card.isDrawn === true)
                   .map((card) => (
                     <PlayCard
-                      key={card.id}
+                      key={crypto.randomUUID()} // Using random key instead of card.id to 'force' React to rerender on DOM after every card click, otherwise the CSS flip animation doesn't always work on all playcards
                       id={card.id}
                       url={card.url}
                       name={card.name}
+                      backImgUrl={POKEBALL_IMAGE_URL}
                       clickCount={card.clickCount}
                       handlePlayCardClick={handlePlayCardClick}
                     />
