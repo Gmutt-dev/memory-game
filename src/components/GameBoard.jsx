@@ -11,17 +11,18 @@ import { SliderOptionInput } from "./SliderOptionInput";
 
 const CARD_LIST_URL =
   "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=100000";
-const difficultyOptions = ["easy", "normal", "hard"];
+const difficultyOptions = ["easy", "normal", "hard", "very hard"];
 const cardsByDifficulty = new Map([
   ["easy", 4 * 1],
   ["normal", 4 * 2],
   ["hard", 4 * 3],
+  ["very hard", 4 * 4],
 ]);
 const MAX_PLAYCARDS = 1000;
 
 export function GameBoard() {
   const [playCardDeck, setPlayCardDeck] = useState([]);
-  const [difficulty, setDifficulty] = useState("normal"); // "easy" || "normal" || "hard"
+  const [difficulty, setDifficulty] = useState("normal"); // "easy" || "normal" || "hard" || "very hard"
 
   const score = useMemo(
     () =>
