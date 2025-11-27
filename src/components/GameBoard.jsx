@@ -44,7 +44,7 @@ export function GameBoard() {
     if (playCardDeck.some((card) => card.clickCount > 1)) return "lost";
     if (playCardDeck.some((card) => card.isDrawn)) return "playing";
     else return "setup";
-  }, [playCardDeck, score, difficulty]);
+  }, [playCardDeck, score, cardsByDifficulty]);
 
   function handleStartRoundButtonClick() {
     const randomCardIdDraw = [
