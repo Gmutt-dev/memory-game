@@ -11,13 +11,13 @@ import { SliderOptionInput } from "./SliderOptionInput";
 
 const CARD_LIST_URL =
   "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=100000";
-const difficultyOptions = ["easy", "normal", "hard", "very hard"];
 const cardsByDifficulty = new Map([
   ["easy", 4 * 1],
   ["normal", 4 * 2],
   ["hard", 4 * 3],
   ["very hard", 4 * 4],
 ]);
+const difficultyOptions = [...cardsByDifficulty.keys()];
 const MAX_PLAYCARDS = 1000;
 
 export function GameBoard() {
