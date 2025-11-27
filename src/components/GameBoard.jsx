@@ -11,13 +11,13 @@ import { SliderOptionInput } from "./SliderOptionInput";
 
 const CARD_LIST_URL =
   "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=100000";
-const cardsByDifficulty = new Map([
-  ["easy", 4 * 1],
-  ["normal", 4 * 2],
-  ["hard", 4 * 3],
-  ["very hard", 4 * 4],
+const difficultyOptions = Object.freeze([
+  "easy",
+  "normal",
+  "hard",
+  "very hard",
 ]);
-const difficultyOptions = [...cardsByDifficulty.keys()];
+const DIFFICULTY_FACTOR = 4;
 const MAX_PLAYCARDS = 1000;
 const POKEBALL_IMAGE_URL =
   "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png";
@@ -25,6 +25,9 @@ const POKEBALL_IMAGE_URL =
 export function GameBoard() {
   const [playCardDeck, setPlayCardDeck] = useState([]);
   const [difficulty, setDifficulty] = useState("normal"); // "easy" || "normal" || "hard" || "very hard"
+
+  const cardsByDifficulty =
+    (difficultyOptions.indexOf(difficulty) + 1) * DIFFICULTY_FACTOR;
 
   const score = useMemo(
     () =>
@@ -37,7 +40,7 @@ export function GameBoard() {
 
   // "setup" || "playing" || "won" || "lost"
   const roundStatus = useMemo(() => {
-    if (score === cardsByDifficulty.get(difficulty)) return "won";
+    if (score === cardsByDifficulty) return "won";
     if (playCardDeck.some((card) => card.clickCount > 1)) return "lost";
     if (playCardDeck.some((card) => card.isDrawn)) return "playing";
     else return "setup";
@@ -46,7 +49,7 @@ export function GameBoard() {
   function handleStartRoundButtonClick() {
     const randomCardIdDraw = [
       ...generateRandomNumbersSet(
-        cardsByDifficulty.get(difficulty),
+        cardsByDifficulty,
         0,
         MAX_PLAYCARDS - 1 // limited, as high number cards don't necessarily have images available yet
       ),
@@ -136,7 +139,7 @@ export function GameBoard() {
         {(() => {
           switch (roundStatus) {
             case "setup":
-              return Array(cardsByDifficulty.get(difficulty))
+              return Array(cardsByDifficulty)
                 .fill()
                 .map((element, index) => <PlayCardSpace key={index} />);
             case "playing":
