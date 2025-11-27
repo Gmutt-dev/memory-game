@@ -120,9 +120,12 @@ export function GameBoard() {
             </button>
           </>
         ) : (
-          <button type="button" onClick={handleNewRestartRoundButtonClick}>
-            New/Restart Round
-          </button>
+          <>
+            <div className="placeholder"></div>
+            <button type="button" onClick={handleNewRestartRoundButtonClick}>
+              New/Restart Round
+            </button>
+          </>
         )}
         <ScoreCard score={score} />
       </header>
