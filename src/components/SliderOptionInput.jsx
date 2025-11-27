@@ -21,7 +21,7 @@ export function SliderOptionInput({
   else if (options.length === 0) return null;
 
   return (
-    <>
+    <div className="slider-option-input">
       <datalist id={IDs.datalistID}>
         {removeArrayDuplicates(options).map((option, index) => (
           <option
@@ -45,6 +45,7 @@ export function SliderOptionInput({
           onChange(e, options[e.target.value]);
         }}
       />
-    </>
+      <output htmlFor={IDs.inputID}>{initialOption}</output>
+    </div>
   );
 }

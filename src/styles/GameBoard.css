@@ -7,8 +7,10 @@
   background-color: green;
 }
 
-header {
+.gameboard > header {
   padding: 5px;
+  background-color: black;
+  color: white;
 
   & > * {
     padding: 5px;
