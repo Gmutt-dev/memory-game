@@ -6,8 +6,10 @@ function App() {
     <div className="app">
       <header>
         <h1>Memory Game</h1>
-        <p className="instructions">
-          <span>Instructions:</span>
+        <section>
+          <p className="instructions">
+            <span>Instructions:</span>
+          </p>
           <ol className="instruction-list">
             <li>Click on any card to begin.</li>
             <li>Cards will be reshuffled on each selection.</li>
@@ -15,7 +17,7 @@ function App() {
             <li>One point is awarded per unique card clicked.</li>
             <li>Game restarts if the same card is clicked twice.</li>
           </ol>
-        </p>
+        </section>
       </header>
       <GameBoard />
     </div>

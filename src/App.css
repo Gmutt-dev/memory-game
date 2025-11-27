@@ -26,19 +26,20 @@
       padding: 5px;
     }
 
-    & .instructions {
-      text-align: left;
+    & section {
       display: grid;
       grid-template-columns: max-content 1fr;
       gap: 10px;
       padding: 10px;
+      text-align: left;
 
-      & span {
-        text-decoration: underline;
+      & .instructions {
+        & span {
+          text-decoration: underline;
+        }
       }
-
-      & > .instruction-list {
-        text-decoration: none !important;
+      & .instruction-list {
+        text-decoration: none;
       }
     }
   }
