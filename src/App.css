@@ -11,10 +11,11 @@
 
 .app {
   width: 700px;
-  margin: 0 auto;
-  border: 1px solid black;
-  border-radius: 5px;
+  margin: 20px auto;
+  border: 1px solid transparent;
+  border-radius: 10px;
   background-color: lightgreen;
+  box-shadow: 0 0 50px 20px lightblue;
 
   & > header {
     & h1 {
@@ -40,6 +41,19 @@
       }
       & .instruction-list {
         text-decoration: none;
+      }
+    }
+  }
+}
+
+@media (max-width: 720px) {
+  .app {
+    width: calc(700px - 340px);
+    margin: 10px auto;
+
+    & header {
+      & section {
+        grid-template-columns: 1fr;
       }
     }
   }
