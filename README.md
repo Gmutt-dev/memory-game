@@ -1,5 +1,7 @@
 The deployed app is available at: [Memory Game](https://memory-game-beige-psi.vercel.app/)
 
+The Odin Project Assignment link: (https://www.theodinproject.com/lessons/node-path-react-new-memory-card)
+
 # **Project: Memory Card**
 
 ## [**React Course**](https://www.theodinproject.com/paths/full-stack-javascript/courses/react)
