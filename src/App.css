@@ -25,5 +25,21 @@
     & > *:not(.gameboard) {
       padding: 5px;
     }
+
+    & .instructions {
+      text-align: left;
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      gap: 10px;
+      padding: 10px;
+
+      & span {
+        text-decoration: underline;
+      }
+
+      & > .instruction-list {
+        text-decoration: none !important;
+      }
+    }
   }
 }
